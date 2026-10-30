@@ -17,127 +17,135 @@ Here is the diagram for my domain model
 classDiagram
     class Student{
         - text studentName
-        - positiveNumber startYear / endYear
+        - positiveNumber startYear 
+        - positiveNumber endYear
         - positiveNumber studentNumber
-        - List<Faculty>  listOfFaculties
-        - Schedule currSchedule
-        - Resource Announcements
-        + showFaculty()
-        + showSchedule (Schedule currSchedule)
-        + showMap()
-        + showStudResources()
-        + addInstructor(Professor instructor)
+        - List<Faculty> studentFaculty
+        - List<Map> campusMaps
+        - Schedule studentSchedule
+        - text Announcements
+        + addFaculty(Faculty wantFaculty)
+        + removeFaculty(Faculty notWantFacult)
+        + showSchedule()
+        + showMap(Map campusMap)
+        + addMap(Map campusMap)
+        + removeMap(Map campusMap)
+        + showFaculty(Faculty currFaculty)
     }
 
     class Course{
         - text courseName
         - Faculty courseFaculty
-        - positiveNumber courseDate
-        - positiveNumber courseTime
+        - CourseDate courseDate
+        - time courseTime
+        - CourseTerm courseTerm
+        - CourseType courseType
         - positiveNumber courseNumber
-        - Professor teachingProfessor
-        + showCourseInfo (Course currCourse)
+        - Instructor courseInstructor
+        
 
+    }
+    class CourseType<<Enumeration>>{
+        LECTURE,
+        LAB
+    }
+    class CourseTerm<<Enumeration>>{
+        FALL,
+        WINTER,
+        SUMMER
+    }
+    class CourseDate<<Enumeration>>{
+        MONDAY,
+        TUESDAY,
+        WEDNESDAY,
+        THURSDAY,
+        FRIDAY
     }
 
     class Faculty{
-        - text facultyName
+        - FacultyName facultyName
         - Building facultyBuilding
-        - List<Faculty> facultyCourses
-        - List Professor facultyProfessors
-        + showAllProf (Professor<ArrayList> allProfessor)
+        - List<Course> facultyCourses
+        - List<Instructor> facultyInstructors
+        + showAllInstructors()
+        + addInstructor(Instructor wantInstructor)
+        + removeInstructor(Instructor exInstructor)
+        + removeAllInstructor()
     }
+    class FacultyName<<Enumeration>>{
+        SCIENCE,
+        ART,
+        BUSINESS,
+        MUSIC,
+        ARCHITECTURE
+    }  
 
-    class Professor{
-        - Faculty professorFaculty
-        - text professorName
-        - List<Course> professorCourses
-        - Building professorOffice
-        + viewAllProfCourse()
+    
+    class Instructor{
+        - Faculty instructorFaculty
+        - boolean isProfessor
+        - text instructorName
+        - Building intructorOffice
+        + InstructorInfo()
     }
 
     class Building{
         - text buildingName
+        - List<Door> buildingDoors
         - Faculty buildingFaculty
-        + addDoor (Building currBuilding)
-        + removeDoor (Building currBuilding)
+        + addDoor()
+        + removeDoor()
     }
+    
+    class Door{
+        - DoorLocation doorPosition
+    }
+    class DoorLocation<<Enumeration>>{
+        FRONT,
+        LSIDE,
+        RSIDE,
+        BACK
+    }  
 
     class Map{
         - text mapName
-        - List<Buildings> mapBuildings
-        + addBuilding (Building wantBuilding)
-        + removeBuilding (Building notWantBuilding)
+        - List<text> buildingsOnMap
+        - list<Building> mapped
+        + addBuilding(Building wantBuilding)
+        + removeBuilding(Building notWantBuilding)
         + removeAllBuilding()
     }
 
     class Schedule{
         - List<Course> offeringCourses
-        + showCourseInfo(Course iCourse)
+        + showCourseInfo(Course selectCourse)
         + addCourse(Course courseWant)
-        + removeCourse (Course courseRemove)
-        + removeAllCourse (List<Course> courseList)
+        + removeCourse(Course courseRemove)
+        + removeAllCourse()
+       
     }
 
-    class StudResource{
-        - link academicCalendar
-        - link helpCenter
-        + viewAcademicCalendar()
-        + viewHelpCenter()
-
-
-    }
-
-    class DevResource{
-        - list<Faculty> facultyList
-        - list<Professor> professorList
-        - Map campusMap
-        + addFaculty (Faculty wantFaculty)
-        + removeFaculty (Faculty notFaculty)
-        + removeMap(Map oldMap)
-        + addMap(Map newMap)
-        + removeInstructor(Professor instructor)
-        + removeAllInstructor()
-    }
-
-
-    class Groal{
-        - List<Course> currTakinCourse
-        - List<> courseGrades
-        - List<number/letter> goals
-        + addGoal (Groal desireGoal)
-        + removeGoal (Groal removeGoal)
-        + viewGoals
-        + viewGPA
-
-    }
-
-    class Direction{
-        - Map directionOnMap
-        + showDirection (Course currCourse)
-        + showDirection (Professor currProf)
-        + showDirection (Building currBuilding)
-
-    }
 
     %%Relationships
     Student --o Course
-    Student --o StudResource
-    Student --* Groal
     Student --o Faculty
-    Student --o Schedule
-    Course --o Building
-    Faculty --o Building
-    Groal -- Course
-    Professor --o Building
-    Student --o DevResource
-    Schedule --o Course
+    Student --o Map
+    Student --* Schedule
     Faculty --* Course
-    Map --* Building
-    Map --* Direction
-    Professor --* Course
-    Faculty --* Professor
-    DevResource --o Map
-    DevResource --o Faculty
-    DevResource --o Professor
+    Course --o Building
+    Faculty --* Instructor
+    Faculty --* Building
+    Instructor --* Course
+    Instructor --o Building
+    Building --* Door
+    Building --o Map
+    Schedule --o Course
+    
+    Course --* CourseType
+    Course --* CourseTerm
+    Course --* CourseDate
+    Door --* DoorLocation
+    Facutly --* FacultyName
+    
+   
 ```
