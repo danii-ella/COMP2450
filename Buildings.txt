@@ -1,0 +1,5 @@
+scienceBuilding, SCIENCE
+artBuilding, ART
+businessBuilding, BUSINESS
+musicBuilding, MUSIC
+archiBuilding, ARCHITECTURE
