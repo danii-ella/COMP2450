@@ -30,9 +30,9 @@ public class Instructor {
     }
 
     public void checkInstructor() {
-        Preconditions.checkNotNull(this.instructorName);
+        Preconditions.checkNotNull(this.instructorName, "InstructorName cannot be null");
         Preconditions.checkState(!instructorName.isEmpty(), "Instructor name should not be empty");
-        Preconditions.checkNotNull(this.instructorFaculty);
-        Preconditions.checkNotNull(this.instructorOffice);
+        Preconditions.checkNotNull(this.instructorFaculty, "InstructorFaculty cannot be null");
+        Preconditions.checkNotNull(this.instructorOffice,  "InstructorOffice cannot be null");
     }
 }

@@ -87,8 +87,8 @@ public class Building {
     }
 
     public void checkBuilding() {
-        Preconditions.checkNotNull(buildingName);
-        Preconditions.checkState(!buildingName.isEmpty());
+        Preconditions.checkNotNull(buildingName, "Building name cannot be null");
+        Preconditions.checkState(!buildingName.isEmpty(), "Building name cannot be empty");
         Preconditions.checkState(!buildingDoors.isEmpty(), "Building doors cannot be 0");
 
     }
